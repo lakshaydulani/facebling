@@ -42,3 +42,5 @@ function supports_ogg_theora_video() {
   var v = document.createElement("video");
   return v.canPlayType('video/ogg; codecs="theora, vorbis"');
 }
+
+var iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
