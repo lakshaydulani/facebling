@@ -1,26 +1,19 @@
-
-$("#click-msg").click(function(){
+$("#bottom-bar").click(function () {
 	$("#files").click();
 });
 
 var wid = screen.width;
-var hei = screen.height - $("#click-msg").outerHeight();
+var hei = screen.height - $("#bottom-bar").outerHeight();
 
-$("#image,#overlay").width(wid);
-$("#image,#overlay").height(hei);
-
+$("#image,#overlay").width(wid).height(hei).hide();
 
 var cc = document.getElementById('image').getContext('2d');
 var overlay = document.getElementById('overlay');
 var overlayCC = overlay.getContext('2d');
 
-/* var img = new Image();
-img.onload = function () {
-	cc.drawImage(img, 0, 0, 625, 500);
-};
-img.src = './media/franck_02159.jpg'; */
-
-var ctrack = new clm.tracker({ stopOnConvergence: true });
+var ctrack = new clm.tracker({
+	stopOnConvergence: true
+});
 ctrack.init();
 
 
@@ -48,27 +41,28 @@ function drawLoop() {
 // detect if tracker fails to find a face
 document.addEventListener("clmtrackrNotFound clmtrackrLost", function (event) {
 	ctrack.stop();
-	$("#click-msg").html("Bad!").css("background-color","red");
+	$("#bottom-bar").html("Bad!").css("background-color", "red");
 }, false);
 
 // detect if tracker has converged
 document.addEventListener("clmtrackrConverged", function (event) {
 	window.faceModel = ctrack.getCurrentPosition();
-	console.log('done success', window.faceModel );
-	$("#click-msg").html("How does it look?").css("background-color","green");
+	console.log('done success', window.faceModel);
+	$("#bottom-bar").html("Looks good! Try in another pose?").css('background-color','green');
+	
 	addEarring();
 	cancelRequestAnimFrame(drawRequest);
 }, false);
 
-function addEarring(){
+function addEarring() {
 	var temp1 = window.faceModel;
-var base_image = new Image();
-  base_image.src = 'icon.png';
-  base_image.onload = function(){
-	cc.drawImage(base_image, temp1[2][0] - base_image.width,temp1[2][1] + 5 );
-	cc.drawImage(base_image, temp1[12][0] ,temp1[12][1] + 5);
-	$("#overlay").hide();
-  }
+	var base_image = new Image();
+	base_image.src = 'icon.png';
+	base_image.onload = function () {
+		overlayCC.clearRect(0, 0, wid, hei);
+		overlayCC.drawImage(base_image, temp1[1][0] - base_image.width / 2, temp1[1][1] + 10);
+		overlayCC.drawImage(base_image, temp1[12][0] - 10, temp1[13][1] + 10);
+	}
 }
 
 
@@ -80,20 +74,15 @@ function loadImage() {
 		var reader = new FileReader();
 		reader.onload = (function (theFile) {
 			return function (e) {
-				// check if positions already exist in storage
-
-				// Render thumbnail.
 				var canvas = document.getElementById('image')
 				var cc = canvas.getContext('2d');
 				var img = new Image();
 				img.onload = function () {
+$("#top-bar").slideUp();
+					$("#image,#overlay").show();
+					$(".earring-descriptor").hide();
+					$("#bottom-bar").css("background-color", "purple").html("Looking for ur face...");
 
-				
-					
-			
-
-$("#overlay").show();
-					$("#click-msg").html("Looking for ur face...");
 					if (img.height > hei || img.width > wid) {
 						var rel = img.height / img.width;
 						var neww = wid;
@@ -107,32 +96,34 @@ $("#overlay").show();
 						overlay.setAttribute('width', neww);
 						overlay.setAttribute('height', newh);
 
-						if(iOS){
+						if (iOS) {
 
-						cc.translate(neww * 0.5, newh * 0.5);
-						cc.rotate(90 * 0.01745);
-						cc.translate(-neww * 0.5, -newh * 0.5);
+							cc.translate(neww * 0.5, newh * 0.5);
+							cc.rotate(90 * 0.01745);
+							cc.translate(-neww * 0.5, -newh * 0.5);
 						}
 						cc.drawImage(img, 0, 0, neww, newh);
 						animateClean();
 					} else {
+						wei = img.width;
+						hei = img.height;
 						canvas.setAttribute('width', img.width);
 						canvas.setAttribute('height', img.height);
 						overlay.setAttribute('width', img.width);
 						overlay.setAttribute('height', img.height);
-						if(iOS){
-						cc.translate(img.width * 0.5, img.height * 0.5);
-						cc.rotate(90 * 0.01745);
-						cc.translate(-img.width * 0.5, -img.height * 0.5);
+						if (iOS) {
+							cc.translate(img.width * 0.5, img.height * 0.5);
+							cc.rotate(90 * 0.01745);
+							cc.translate(-img.width * 0.5, -img.height * 0.5);
 						}
 						cc.drawImage(img, 0, 0, img.width, img.height);
 					}
 
-					if(iOS)
+					if (iOS)
 						cc.restore();
-					
+
 				}
-				
+
 				img.src = e.target.result;
 			};
 		})(fileList[fileIndex]);
@@ -163,4 +154,4 @@ if (window.File && window.FileReader && window.FileList) {
 		loadImage();
 	}
 	document.getElementById('files').addEventListener('change', handleFileSelect, false);
-} 
+}

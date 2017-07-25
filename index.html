@@ -3,7 +3,7 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>FaceRec</title>
 	<link rel="stylesheet" type="text/css" href="main.css" />
 	<link rel="stylesheet" type="text/css" href="./imgareaselect-default.css">
@@ -14,30 +14,44 @@
 	<script src="./dat.gui.min.js"></script>
 	<script src="./clmtrackr.js"></script>
 
-	
+
 	<script src="./jquery.min.js"></script>
 	<script src="./jquery.imgareaselect.pack.js"></script>
 
 	<div id="content">
 
+		<div id="top-bar">
+beadiful thingz
+		</div>
+
 		<div id="container">
 			<canvas id="image"></canvas>
-			<canvas id="overlay" ></canvas>
-			
+			<canvas id="overlay"></canvas>
 
-			<div id="click-msg" >
-				I wanna try!
-				</div>
+
+			<img class="earring-descriptor" id="earring-main-image" src="https://assets5.mirraw.com/images/3522148/CTWER00115_original.JPG?1499522298"
+			/>
+			<div class="earring-descriptor" id="earring-main-description">
+				<span>
+					Afghani Jhumka
+					</span>
+				<div id="earring-cost">Rs. 499</div>
+			</div>
+
+
+			<div style="background-color:purple" id="bottom-bar">
+				Wanna try them?
+			</div>
 
 			<input type="file" class="hide" id="files" name="files[]" accept="image/*" capture="camera">
 
-<input type="button" class="hide" value="start" onclick="animateClean()">
+			<input type="button" class="hide" value="start" onclick="animateClean()">
 
 
 
 		</div>
-<script src="./main.js"></script>
-<!-- <script src="./exif.js"></script> -->
+		<script src="./main.js"></script>
+		<!-- <script src="./exif.js"></script> -->
 
 </body>
 
