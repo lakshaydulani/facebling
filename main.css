@@ -854,3 +854,11 @@ font-size: larger;
 border-bottom:1px solid purple;
 padding: 15px 0; 
 }
+
+#loader{
+	top: 50%;
+    position: fixed;
+    width: 100%;
+    text-align: center;
+    font-size: x-large;
+}

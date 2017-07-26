@@ -48,8 +48,8 @@ document.addEventListener("clmtrackrNotFound clmtrackrLost", function (event) {
 document.addEventListener("clmtrackrConverged", function (event) {
 	window.faceModel = ctrack.getCurrentPosition();
 	console.log('done success', window.faceModel);
-	$("#bottom-bar").html("Looks good! Try in another pose?").css('background-color','green');
-	
+	$("#bottom-bar").html("Looks good! Try in another pose?").css('background-color', 'green');
+
 	addEarring();
 	cancelRequestAnimFrame(drawRequest);
 }, false);
@@ -57,7 +57,7 @@ document.addEventListener("clmtrackrConverged", function (event) {
 function addEarring() {
 	var temp1 = window.faceModel;
 	var base_image = new Image();
-	base_image.src = 'icon.png';
+	base_image.src = $("#tryUrl").val();
 	base_image.onload = function () {
 		overlayCC.clearRect(0, 0, wid, hei);
 		overlayCC.drawImage(base_image, temp1[1][0] - base_image.width / 2, temp1[1][1] + 10);
@@ -78,7 +78,7 @@ function loadImage() {
 				var cc = canvas.getContext('2d');
 				var img = new Image();
 				img.onload = function () {
-$("#top-bar").slideUp();
+					$("#top-bar").slideUp();
 					$("#image,#overlay").show();
 					$(".earring-descriptor").hide();
 					$("#bottom-bar").css("background-color", "purple").html("Looking for ur face...");

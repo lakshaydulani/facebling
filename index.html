@@ -9,7 +9,7 @@
 	<link rel="stylesheet" type="text/css" href="./imgareaselect-default.css">
 </head>
 
-<body>
+<body style="display:none2">
 	<script src="./utils.js"></script>
 	<script src="./dat.gui.min.js"></script>
 	<script src="./clmtrackr.js"></script>
@@ -18,24 +18,28 @@
 	<script src="./jquery.min.js"></script>
 	<script src="./jquery.imgareaselect.pack.js"></script>
 
-	<div id="content">
-
-		<div id="top-bar">
-beadiful thingz
+<div id="top-bar">
+			beadiful thingz
 		</div>
+
+		<div id="loader">
+			Loading...
+			</div>
+
+	<div id="content" class="hide">
+
+		
 
 		<div id="container">
 			<canvas id="image"></canvas>
 			<canvas id="overlay"></canvas>
 
 
-			<img class="earring-descriptor" id="earring-main-image" src="https://assets5.mirraw.com/images/3522148/CTWER00115_original.JPG?1499522298"
-			/>
+			<img class="earring-descriptor" id="earring-main-image" class="hide"/>
 			<div class="earring-descriptor" id="earring-main-description">
 				<span>
-					Afghani Jhumka
 					</span>
-				<div id="earring-cost">Rs. 499</div>
+				<div id="earring-cost"></div>
 			</div>
 
 
@@ -47,12 +51,27 @@ beadiful thingz
 
 			<input type="button" class="hide" value="start" onclick="animateClean()">
 
-
+			<input id="tryUrl" type="hidden" value=""/>
 
 		</div>
 		<script src="./main.js"></script>
 		<!-- <script src="./exif.js"></script> -->
+		<script src="https://www.gstatic.com/firebasejs/4.1.5/firebase-app.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/4.1.5/firebase-database.js"></script>
 
+		<script>
+			// Initialize Firebase
+			var config = {
+				apiKey: "AIzaSyBKLG0_xAZ0W1taA5vm2hcDcz4bqeyKWA0",
+				authDomain: "facebling-2e2a0.firebaseapp.com",
+				databaseURL: "https://facebling-2e2a0.firebaseio.com",
+				projectId: "facebling-2e2a0",
+				storageBucket: "facebling-2e2a0.appspot.com",
+				messagingSenderId: "684205135582"
+			};
+			firebase.initializeApp(config);
+		</script>
+		<script src="/api.js"></script>
 </body>
 
 </html>
