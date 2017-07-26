@@ -47,7 +47,7 @@ document.addEventListener("clmtrackrNotFound clmtrackrLost", function (event) {
 // detect if tracker has converged
 document.addEventListener("clmtrackrConverged", function (event) {
 	window.faceModel = ctrack.getCurrentPosition();
-	console.log('done success', window.faceModel);
+	
 	$("#bottom-bar").html("Looks good! Try in another pose?").css('background-color', 'green');
 
 	addEarring();
