@@ -8,11 +8,10 @@ body {
 	/* max-width: 1150px; */
 }
 
-/* #overlay {
-	position: absolute;
-	top: 0px;
-	left: 0px;
-} */
+ #overlay {
+	position: fixed;
+	top: 45px;
+} 
 
 #sketch {
 	display: none;

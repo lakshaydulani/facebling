@@ -5,7 +5,7 @@ $(function () {
 		var loadingImage = loadImage(
 			e.target.files[0],
 			function (img) {
-				
+				$("#overlay").removeClass('hide');
 				$("#image").remove();
 				$(img).attr('id', 'image');
 				$("#container").prepend(img);
