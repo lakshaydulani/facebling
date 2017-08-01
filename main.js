@@ -1,24 +1,60 @@
-$("#bottom-bar").click(function () {
-	$("#files").click();
+$(function () {
+
+	document.getElementById('files').onchange = function (e) {
+		ctrack.reset();
+		var loadingImage = loadImage(
+			e.target.files[0],
+			function (img) {
+				
+				$("#image").remove();
+				$(img).attr('id', 'image');
+				$("#container").prepend(img);
+				var $img = $("#image");
+				wid = $img.attr('width');
+				hei = $img.attr('height');
+				document.querySelector("#overlay").height = hei;
+				document.querySelector("#overlay").width = wid;
+				$(".earring-descriptor").hide();
+				$("#bottom-bar").css("background-color", "purple").html("Looking for ur face...");
+
+				cc = document.getElementById('image').getContext('2d');
+				overlay = document.getElementById('overlay');
+				overlayCC = overlay.getContext('2d');
+
+				animateClean();
+			}, {
+				maxWidth: screen.width,
+				maxHeight: screen.height,
+				orientation: true
+			}
+		);
+
+	};
+
+	$("#bottom-bar").click(function () {
+		$("#files").click();
+	});
+
 });
 
-var wid = screen.width;
-var hei = screen.height - $("#bottom-bar").outerHeight();
 
-$("#image,#overlay").width(wid).height(hei).hide();
+var wid, hei;
 
-var cc = document.getElementById('image').getContext('2d');
-var overlay = document.getElementById('overlay');
-var overlayCC = overlay.getContext('2d');
+
 
 var ctrack = new clm.tracker({
 	stopOnConvergence: true
 });
 ctrack.init();
-
-
-
 var drawRequest;
+
+
+
+
+
+
+
+
 
 function animateClean() {
 	ctrack.start(document.getElementById('image'));
@@ -47,7 +83,7 @@ document.addEventListener("clmtrackrNotFound clmtrackrLost", function (event) {
 // detect if tracker has converged
 document.addEventListener("clmtrackrConverged", function (event) {
 	window.faceModel = ctrack.getCurrentPosition();
-	
+
 	$("#bottom-bar").html("Looks good! Try in another pose?").css('background-color', 'green');
 
 	addEarring();
@@ -68,7 +104,7 @@ function addEarring() {
 
 
 
-// function to start showing images
+/* 
 function loadImage() {
 	if (fileList.indexOf(fileIndex) < 0) {
 		var reader = new FileReader();
@@ -134,8 +170,6 @@ function loadImage() {
 	}
 
 }
-
-// set up file selector and variables to hold selections
 var fileList, fileIndex;
 if (window.File && window.FileReader && window.FileList) {
 	function handleFileSelect(evt) {
@@ -154,4 +188,4 @@ if (window.File && window.FileReader && window.FileList) {
 		loadImage();
 	}
 	document.getElementById('files').addEventListener('change', handleFileSelect, false);
-}
+} */

@@ -3,8 +3,8 @@ var itemName = getParameterByName('item'),
 
 const ref = database.ref().child(itemName);
 ref.once('value').then(function (snap) {
-    $("#content").removeClass('hide');
-    $("#loader").addClass('hide');
+    $("#content,#bottom-bar").removeClass('hide');
+    $("#loader").remove();
     var item = snap.val();
     $("#earring-cost").html('Rs. ' + item.value);
     $("#earring-main-description span").html(itemName);
